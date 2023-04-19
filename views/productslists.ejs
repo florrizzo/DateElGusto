@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head'); %>
+  </head>
+  <body>
+    <div class="div-flex">
+      <div id="div-list-products" class="div-left">
+        <% if (productos.length > 0){ %>
+        <div class="productSearch">
+          <form
+            name="searchProductByID"
+            action="/api/products/id/"
+            onsubmit="this.action = this.action + this.searchID.value; this.submit();"
+            method="GET"
+          >
+            <input type="text" name="searchID" placeholder="ID" />
+            <input type="submit" value="Buscar" />
+          </form>
+          <form
+            name="searchProductByName"
+            action="/api/products/name/"
+            onsubmit="this.action = this.action + this.searchName.value; this.submit();"
+            method="GET"
+          >
+            <input type="text" name="searchName" placeholder="Nombre" />
+            <input type="submit" value="Buscar" />
+          </form>
+
+          <% if (productosEncontrados.length > 0){ %>
+          <div class="divTable">
+            <div class="headRow">
+              <div class="divCell"><p>Nombre</p></div>
+              <div class="divCell"><p>Precio</p></div>
+              <div class="divCell"><p>Foto</p></div>
+            </div>
+
+            <% for (let i = 0; i < productosEncontrados.length; i++) { %>
+            <div class="divRow">
+              <div class="divCell">
+                <p><%=productosEncontrados[i].title%></p>
+              </div>
+              <div class="divCell">
+                <p><%=productosEncontrados[i].price%></p>
+              </div>
+              <div class="divCell">
+                <img
+                  class="pequeña"
+                  src="<%=productosEncontrados[i].thumbnail%>"
+                  alt="imagen-producto"
+                />
+              </div>
+              <form
+              name="sendCart"
+              class="divCell marginpadding-0"
+              action="/api/carts/addToCart"
+              method="POST"
+            >
+              <textarea class="hidden" name="addcart">
+<%=productos[i].title%></textarea
+              >
+              <input type="submit" class="divCell" value="Agregar al carrito" />
+            </form>
+            </div>
+            <% } %>
+          </div>
+          <% } else { %>
+          <h3>No se encontró ningún producto</h3>
+          <% } %>
+        </div>
+        <h1>Lista de productos:</h1>
+        <div class="divTable">
+          <div class="headRow">
+            <div class="divCell"><p>ID</p></div>
+            <div class="divCell"><p>Nombre</p></div>
+            <div class="divCell"><p>Precio</p></div>
+            <div class="divCell"><p>Foto</p></div>
+          </div>
+
+          <% for (let i = 0; i < productos.length; i++) { %>
+          <div class="divRow">
+            <div class="divCell"><p><%=productos[i].id%></p></div>
+            <div class="divCell"><p><%=productos[i].title%></p></div>
+            <div class="divCell"><p><%=productos[i].price%></p></div>
+            <div class="divCell">
+              <img
+                class="pequeña"
+                src="<%=productos[i].thumbnail%>"
+                alt="imagen-producto"
+              />
+            </div>
+            <form
+              name="sendCart"
+              class="divCell marginpadding-0"
+              action="/api/carts/addToCart"
+              method="POST"
+            >
+              <textarea class="hidden" name="addcart">
+<%=productos[i].title%></textarea
+              >
+              <input type="submit" class="divCell" value="Agregar al carrito" />
+            </form>
+          </div>
+          <% } %>
+        </div>
+        <% } else { %>
+        <h1>No hay productos</h1>
+        <% } %>
+
+        <h2>Agregar producto nuevo:</h2>
+        <div>
+          <form name="postProduct" action="/api/products" method="post">
+            <div class="input">
+              <label for="title" class="input-label">Ingrese el nombre:</label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                class="input-field"
+                required
+              />
+            </div>
+            <div class="input">
+              <label for="price" class="input-label">Ingrese el precio:</label>
+              <input
+                type="text"
+                id="price"
+                name="price"
+                class="input-field"
+                required
+              />
+            </div>
+            <div class="input">
+              <label for="thumbnail" class="input-label">Ingrese la url:</label>
+              <input
+                type="text"
+                id="thumbnail"
+                name="thumbnail"
+                class="input-field"
+                required
+              />
+            </div>
+            <input type="submit" class="action-button" />
+          </form>
+        </div>
+      </div>
+
+      <div class="div-right">
+        <% if (usuario){ %>
+
+        <div class="user">
+          <h1><%=usuario%></h1>
+          <button class="btn-log">
+            <a href="/api/users/logout">Desloguear</a>
+          </button>
+
+          <p>Tus datos:</p>
+          <p>Nombre: <%=nombre%></p>
+          <p>Dirección: <%=direccion%></p>
+          <p>Edad: <%=edad%></p>
+          <p>Teléfono: <%=telefono%></p>
+
+          <h2>Carrito:</h2>
+          <div id="div-cart-products" class="carrito">
+            <% if (productosCarrito){ %> <% for (let i = 0; i <
+            productosCarrito.length; i++) { %>
+            <div class="div-flex">
+              <%=productosCarrito[i].title%> - <%=productosCarrito[i].price%>
+              <form
+                name="deleteFromCart"
+                class="marginpadding-0"
+                action="/api/carts/deleteFromCart"
+                method="POST"
+              >
+                <textarea class="hidden" name="deletefromcart">
+<%=productosCarrito[i].title%></textarea
+                >
+                <input type="submit" class="btn-cart" value="Eliminar" />
+              </form>
+            </div>
+            <% } %>
+            <div><em> Total: <%=total%> </em></div>
+            <form name="emptyCart" action="/api/carts/emptyCart" method="POST">
+              <input type="submit" class="btn-cart" value="Vaciar Carrito" />
+            </form>
+            <form
+              name="sendCart"
+              action="/api/carts/enviarCarrito"
+              method="POST"
+            >
+              <input type="submit" class="action-button" value="Enviar" />
+            </form>
+            <% } %>
+          </div>
+        </div>
+
+        <% } %>
+      </div>
+    </div>
+
+    <h2>Centro de Mensajes</h2>
+    <form onsubmit="enviarMsg(); return false">
+      <input
+        class="input-field"
+        id="input-alias"
+        type="text"
+        placeholder="Alias"
+        required
+      /><br />
+      <div class="chat" id="div-list-msgs"></div>
+      <input
+        class="input-field"
+        id="input-msg"
+        type="text"
+        placeholder="Mensaje"
+      />
+      <input type="submit" value="Enviar!" class="action-button" />
+    </form>
+
+  </body>
+</html>
