@@ -47,5 +47,5 @@ module.exports = {
   getRegister,
   postLogin,
   getMain,
-  getLogout
+  getLogout,
 };

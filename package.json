@@ -5,18 +5,24 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon server.js dev",
-    "prod": "nodemon server.js prod"
+    "prod": "nodemon server.js prod",
+    "test": "mocha  ./test/testingApp.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^2.0.20"
+    "@faker-js/faker": "^7.6.0",
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "nodemon": "^2.0.21",
+    "supertest": "^6.3.3"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
     "compression": "^1.7.4",
     "connect-mongo": "^4.6.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.8",
     "express": "^4.18.2",

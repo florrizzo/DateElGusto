@@ -1,7 +1,7 @@
 const Router = require("express");
 const routerCarts = new Router();
 const controller = require("../controller/carts");
-const renderMain = require("../config/render")
+const renderMain = require("../config/render");
 
 routerCarts.post("/enviarCarrito", controller.postEnviarCarrito);
 

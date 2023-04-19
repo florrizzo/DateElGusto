@@ -51,16 +51,20 @@
                 />
               </div>
               <form
-              name="sendCart"
-              class="divCell marginpadding-0"
-              action="/api/carts/addToCart"
-              method="POST"
-            >
-              <textarea class="hidden" name="addcart">
-<%=productos[i].title%></textarea
+                name="sendCart"
+                class="divCell marginpadding-0"
+                action="/api/carts/addToCart"
+                method="POST"
               >
-              <input type="submit" class="divCell" value="Agregar al carrito" />
-            </form>
+                <textarea class="hidden" name="addcart">
+<%=productos[i].title%></textarea
+                >
+                <input
+                  type="submit"
+                  class="divCell"
+                  value="Agregar al carrito"
+                />
+              </form>
             </div>
             <% } %>
           </div>
@@ -216,6 +220,5 @@
       />
       <input type="submit" value="Enviar!" class="action-button" />
     </form>
-
   </body>
 </html>

@@ -49,31 +49,26 @@ class ContenedorMongoDB {
 
   async getById(id) {
     try {
-      const result = await this.model.find(
-        { _id: id },
-        { __v: false }
-      );
+      const result = await this.model.find({ _id: id }, { __v: false });
       return result;
-    } 
-    catch {
+    } catch {
       return false;
     }
-    
   }
 
   async replace(id, title, thumbnail, price) {
     await ProductsModel.updateOne(
-        { _id: id },
-        {
-          $set: {
-            title: title,
-            thumbnail: thumbnail,
-            price: price
-          },
-        }
-      );
-      let result = await this.getById(id)
-      return result[0]
+      { _id: id },
+      {
+        $set: {
+          title: title,
+          thumbnail: thumbnail,
+          price: price,
+        },
+      }
+    );
+    let result = await this.getById(id);
+    return result[0];
   }
 
   async deleteById(id) {
@@ -89,7 +84,7 @@ class ContenedorMongoDB {
         thumbnail: thumbnail,
       });
       let result = await productoNuevo.save();
-      return result
+      return result;
     } catch {
       logger.log("error", "Se ha producido un error al guardar el producto");
       return "Se ha producido un error";
@@ -116,7 +111,6 @@ class ContenedorMongoDB {
     if (carritoUsuario.length > 0) {
       const productosCarrito = carritoUsuario[0].productos;
       productosCarrito.push(product);
-      console.log(username);
       await this.model.updateOne(
         { username: username },
         {
@@ -129,9 +123,8 @@ class ContenedorMongoDB {
       try {
         const carritoNuevo = new ModeloCarritos({
           username: username,
-          productos: [ product ],
+          productos: [product],
         });
-        console.log(carritoNuevo)
         await carritoNuevo.save();
       } catch {
         logger.log("error", "Se ha producido un error");
@@ -163,8 +156,6 @@ class ContenedorMongoDB {
   async emptyCart(username) {
     await this.model.deleteOne({ username: username });
   }
-
- 
 }
 
 let instanceProduct = null;

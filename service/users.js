@@ -21,37 +21,6 @@ const transporter = createTransport({
   },
 });
 
-/* async function datosMain(username, datosUsuario, productosEncontrados) {
-  const productos = await contenedor.getAll();
-  const cartProducts = await contenedorCarrito.getCartProducts(username);
-  let sum = 0;
-  if (cartProducts.length > 0) {
-    cartProducts.forEach((element) => {
-      sum += element.price;
-    });
-  }
-  const datos = {
-    productos: productos,
-    usuario: username,
-    nombre: datosUsuario.nombre,
-    direccion: datosUsuario.direccion,
-    edad: datosUsuario.edad,
-    telefono: datosUsuario.telefono,
-    url: datosUsuario.url,
-    productosEncontrados: [],
-    productosCarrito: cartProducts,
-    total: sum,
-  };
-
-  if (productosEncontrados) {
-    productosEncontrados.forEach((element) => {
-      datos.productosEncontrados.push(element);
-    });
-  }
-
-  return datos;
-} */
-
 async function signUpMail(username) {
   const mailOptions = {
     from: "Servidor Node.js",
@@ -63,7 +32,7 @@ async function signUpMail(username) {
       "</span></h1>",
   };
 
-/*   try {
+  /*   try {
     const enviarMail = async () => {
       const info = await transporter.sendMail(mailOptions);
       logger.log("info", info);
@@ -75,6 +44,6 @@ async function signUpMail(username) {
 }
 
 module.exports = {
-/*   datosMain, */
+  /*   datosMain, */
   signUpMail,
 };

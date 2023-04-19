@@ -3,24 +3,37 @@ const routerProducts = new Router();
 const controller = require("../controller/products");
 const passport = require("passport");
 const checkAuthentication = require("../config/autentication");
-const renderMain = require("../config/render")
+const renderMain = require("../config/render");
 
-routerProducts.post("/buscadorproductos", controller.postProductFilter);
-routerProducts.get("/buscadorproductos", (req, res) => {
-  res.redirect("/");
-});
+routerProducts.get(
+  "/",
+  checkAuthentication,
+  controller.getProducts,
+  renderMain,
+);
 
-routerProducts.get("/", checkAuthentication, controller.getProducts, renderMain);
+routerProducts.get(
+  "/name/:name",
+  checkAuthentication,
+  controller.getProductByName,
+  renderMain,
+);
 
-routerProducts.get("/name/:name", checkAuthentication, controller.getProductByName, renderMain);
-
-routerProducts.get("/id/:id", checkAuthentication, controller.getProductById, renderMain);
+routerProducts.get(
+  "/id/:id",
+  checkAuthentication,
+  controller.getProductById,
+  renderMain,
+);
 
 routerProducts.post("/", checkAuthentication, controller.postProduct);
 
 routerProducts.put("/id/:id", checkAuthentication, controller.putProductById);
 
-routerProducts.delete("/id/:id", checkAuthentication, controller.deleteProductById);
-
+routerProducts.delete(
+  "/id/:id",
+  checkAuthentication,
+  controller.deleteProductById,
+);
 
 module.exports = routerProducts;

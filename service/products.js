@@ -4,7 +4,6 @@ const container = ProductosDao.getInstance();
 const logger = require("../config/logger");
 
 const ProductsValidation = require("../config/validation");
-const { description } = require("../config/validation");
 
 async function getProducts() {
   let resultado = await container.getAll();
@@ -13,7 +12,7 @@ async function getProducts() {
 
 async function getProductByName(name) {
   let result = await container.getByName(name);
-  if (!result || result.length < 1 ) {
+  if (!result || result.length < 1) {
     return "No se encontró ningún producto";
   }
   return result;
@@ -24,15 +23,14 @@ async function getProductById(id) {
   if (!result) {
     return "No se encontró ningún producto";
   }
-  return result
+  return result;
 }
 
 async function postProduct(title, price, thumbnail) {
-  console.log("lalal", title, price, thumbnail)
   const { error, value } = await ProductsValidation.validate({
     title: title,
     price: price,
-    thumbnail: thumbnail
+    thumbnail: thumbnail,
   });
   if (error) {
     logger.log("info", "Error de posteo: " + error);
@@ -50,7 +48,7 @@ async function putProductById(id, title, price, thumbnail) {
   const { error, value } = await ProductsValidation.validate({
     title: title,
     price: price,
-    thumbnail: thumbnail
+    thumbnail: thumbnail,
   });
   if (error) {
     logger.log("info", "Error de posteo: " + error);

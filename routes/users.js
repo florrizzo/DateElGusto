@@ -2,8 +2,8 @@ const Router = require("express");
 const routerUsers = new Router();
 const controller = require("../controller/users");
 const passport = require("passport");
-const checkAuthentication = require("../config/autentication")
-const renderMain = require("../config/render")
+const checkAuthentication = require("../config/autentication");
+const renderMain = require("../config/render");
 
 routerUsers.get("/", checkAuthentication, renderMain);
 

@@ -1,9 +1,11 @@
+const logger = require("../../config/logger");
+
 class ContenedorMemoria {
   constructor(list) {
     this.list = list;
   }
 
-  async getAll(list) {
+  async getAll() {
     return this.list;
   }
 
@@ -26,9 +28,7 @@ class ContenedorMemoria {
 
   async getById(id) {
     try {
-      const index = this.list.findIndex(
-        (object) => object.id == id
-      );
+      const index = this.list.findIndex((object) => object.id == id);
       const resultado = [];
       if (this.list[index]) {
         resultado.push(this.list[index]);
@@ -55,7 +55,7 @@ class ContenedorMemoria {
       this.list.push(productoNuevo);
       return id;
     } catch {
-      console.log("Se ha producido un error");
+      logger.log("warn", "Se ha producido un error");
       return "Se ha producido un error";
     }
   }

@@ -38,10 +38,7 @@ const httpServer = require("http").createServer(app);
 const io = require("socket.io")(httpServer);
 
 httpServer.listen(PORT, () => {
-  console.log({
-    PORT,
-    MONGO_URL,
-  });
+  logger.log("info", `App escuchando en el puerto http://localhost:${PORT}`);
 });
 
 app.use(express.json());
@@ -67,15 +64,19 @@ app.get("/*", (req, res) => {
   res.redirect("/api/users/login");
 });
 
-const mensajes = [{alias: "Date el gusto", text: "Bienvenido a la página de Date el Gusto! En que podemos ayudarte?"}]
+const mensajes = [
+  {
+    alias: "Date el gusto",
+    text: "Bienvenido a la página de Date el Gusto! En que podemos ayudarte?",
+  },
+];
 /* Sockets */
 io.on("connection", async (socket) => {
-  console.log("Usuario conectado");
+  logger.log("info", "Usuario conectado");
   io.sockets.emit("msg-list", mensajes);
 
   socket.on("msg", async (data) => {
     mensajes.push(data);
-    console.log(mensajes)
     io.sockets.emit("msg-list", mensajes);
-  }); 
+  });
 });
