@@ -9,8 +9,8 @@ const logger = require("../config/logger");
 const { createTransport } = require("nodemailer");
 
 const TEST_MAIL = process.env.AdminMail || "florenciam.rizzo@hotmail.com";
-const mailUser = process.env.Ethereal_Mail || "hailey.brown@ethereal.email";
-const mailPass = process.env.Ethereal_Pass || "s6hb6pXVzFcPtsHGgC";
+const mailUser = process.env.Ethereal_Mail || "princess.lesch@ethereal.email";
+const mailPass = process.env.Ethereal_Pass || "JaC93uNpeaHP44nCra";
 
 const transporter = createTransport({
   host: "smtp.ethereal.email",
@@ -43,7 +43,7 @@ async function enviarCarrito(username, nombre, telefono) {
       <p>${htmlcarrito}</p>`,
   };
 
-  /*   try {
+    try {
     const enviarMail = async () => {
       const info = await transporter.sendMail(mailOptions);
       logger.log("info", info);
@@ -51,7 +51,7 @@ async function enviarCarrito(username, nombre, telefono) {
     enviarMail();
   } catch (err) {
     logger.log("error", err);
-  } */
+  }
 }
 
 async function agregarCarrito(product, username) {
