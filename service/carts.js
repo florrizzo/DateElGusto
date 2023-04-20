@@ -43,7 +43,7 @@ async function enviarCarrito(username, nombre, telefono) {
       <p>${htmlcarrito}</p>`,
   };
 
-    try {
+  try {
     const enviarMail = async () => {
       const info = await transporter.sendMail(mailOptions);
       logger.log("info", info);
