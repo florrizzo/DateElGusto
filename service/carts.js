@@ -49,6 +49,7 @@ async function enviarCarrito(username, nombre, telefono) {
       logger.log("info", info);
     };
     enviarMail();
+    vaciarCarrito(username);
   } catch (err) {
     logger.log("error", err);
   }

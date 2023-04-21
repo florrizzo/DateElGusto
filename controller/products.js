@@ -3,33 +3,27 @@ const test = process.env.TEST;
 
 async function getProducts(req, res, next) {
   let result = await service.getProducts();
-  if (test == "True") {
-    res.status(200).json(result);
-  }
+  res.status(200);
   next();
 }
 
 async function getProductByName(req, res, next) {
   let { name } = req.params;
   let result = await service.getProductByName(name);
-  if (test == "True") {
-    res.status(200).json(result);
-  }
   if (result != "No se encontró ningún producto") {
     req.body.productosEncontrados = result;
   }
+  res.status(200);
   next();
 }
 
 async function getProductById(req, res, next) {
   let { id } = req.params;
   let result = await service.getProductById(id);
-  if (test == "True") {
-    res.status(200).json(result);
-  }
   if (result != "No se encontró ningún producto") {
     req.body.productosEncontrados = result;
   }
+  res.status(200);
   next();
 }
 
@@ -39,9 +33,7 @@ async function postProduct(req, res) {
     parseInt(req.body.price),
     req.body.thumbnail
   );
-  if (test == "True") {
-    res.status(201).json(result);
-  }
+  res.status(201);
   res.redirect("/api/products");
 }
 
