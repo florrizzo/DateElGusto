@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node server.js prod",
     "dev": "nodemon server.js dev",
     "prod": "nodemon server.js prod",
     "test": "mocha  ./test/testingApp.js"
